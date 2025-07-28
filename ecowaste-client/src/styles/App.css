@@ -1,3 +1,4 @@
+/* Login & Register */
 .login-page,
 .register-page {
   min-height: 100vh;
@@ -8,9 +9,9 @@
   justify-content: flex-start;
 }
 
+/* Branding */
 .branding {
   height: 180px;
-  /* atur tinggi tetap */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -20,20 +21,8 @@
 .logo-title {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-bottom: 0px;
-}
-
-.tagline {
-  margin-top: 0px;
-  font-size: 17px;
-  color: #555;
-}
-
-.logo-title {
-  display: flex;
-  align-items: center;
   gap: 10px;
+  margin-bottom: 0;
 }
 
 .logo {
@@ -46,7 +35,13 @@
   font-weight: bold;
 }
 
-/* Form container */
+.tagline {
+  margin-top: 0;
+  font-size: 17px;
+  color: #555;
+}
+
+/* Form Auth */
 .auth-container {
   background: white;
   padding: 30px;
@@ -101,32 +96,25 @@
   font-size: 14px;
 }
 
-
-
 .error-message {
   color: red;
 }
 
-.radio-label {
-  display: flex;
-  align-items: center;
-  margin-bottom: 8px;
-  gap: 12px;
-  /* jarak antara radio dan teks */
-}
-
-.radio-text {
-  font-size: 16px;
-}
-
-/* HEADER */
+/* Header */
 .eco-header {
   background-color: #B0D0D3;
   padding: 10px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  z-index: 1000;
 }
+
 
 .eco-header-left {
   display: flex;
@@ -138,6 +126,13 @@
   margin-right: 10px;
 }
 
+.eco-logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
 .eco-title-header {
   font-size: 28px;
   font-weight: bold;
@@ -147,6 +142,13 @@
 .eco-header-center {
   display: flex;
   align-items: center;
+}
+
+
+.eco-header-right-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .eco-search-input {
@@ -165,6 +167,27 @@
   cursor: pointer;
 }
 
+.eco-search-wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.eco-search-input {
+  padding: 8px 16px;
+  border-radius: 20px;
+  border: 1px solid #999;
+  outline: none;
+  width: 200px;
+  font-size: 14px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+}
+
+.eco-search-input:focus {
+  border-color: #1B5E20;
+  box-shadow: 0 0 5px rgba(27, 94, 32, 0.3);
+}
+
 .eco-header-right {
   display: flex;
   gap: 12px;
@@ -180,20 +203,18 @@
   font-weight: 600;
 }
 
-
-/* SIDEBAR */
+/* Sidebar */
 .eco-sidebar {
   background-color: #1B5E20;
   color: white;
-  width: 25vw;
+  width: 220px;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
+  height: calc(100vh - 70px);
   position: fixed;
   top: 70px;
-  /* sesuaikan dengan tinggi header */
   left: 0;
 }
 
@@ -205,14 +226,15 @@
 }
 
 .sidebar-profile-pic {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background-color: #ccc;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  margin-top: 20px;
 }
 
 .sidebar-username {
@@ -240,42 +262,36 @@
   background-color: #3b60a0;
 }
 
+.content-container {
+  margin-left: 240px;
+  /* match lebar sidebar */
+  padding: 100px 30px 40px 30px;
+  /* top padding disesuaikan dgn tinggi header */
+  background-color: #fff8e1;
+  flex: 1;
+  min-height: calc(100vh - 50px);
+  /* agar tidak ketutupan footer */
+  z-index: 1;
+  position: relative;
+}
+
+
 
 /* Footer */
 .eco-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: #B0D0D3;
   text-align: center;
   padding: 10px;
   font-size: 14px;
   color: #1B5E20;
-  position: fixed;
-  bottom: 0;
-  left: 240px;
-  /* match sidebar width */
-  width: calc(100% - 240px);
+  z-index: 800;
 }
 
-/* Pengumpulan Sampah */
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.content-container {
-  margin-left: 240px;
-  /* lebar sidebar */
-  padding: 20px;
-  background-color: #fff8e1;
-  flex: 1;
-}
-
-.page-title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-}
-
+/* Tombol tambah */
 .add-button {
   position: fixed;
   bottom: 80px;
@@ -290,6 +306,7 @@
   cursor: pointer;
 }
 
+/* Form pengumpulan */
 .form-box {
   background-color: white;
   border: 1px solid black;
@@ -312,4 +329,70 @@
   border-radius: 8px;
   border: 1px solid #ccc;
   margin-top: 5px;
+}
+
+/* Halaman Profile */
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.upload-button {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid #333;
+  padding: 4px 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.profile-form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Badge Point */
+.badge-point-container {
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+}
+
+.badge-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.badge-values {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.point-value,
+.sampah-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fdd835;
 }
