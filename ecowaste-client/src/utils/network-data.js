@@ -1,4 +1,4 @@
-const BASE_URL = 'https://api.ecowaste.fake/v1'; // Ganti dengan URL backend asli jika sudah tersedia
+const BASE_URL = 'https://api.ecowaste.store/v1';
 
 function getAccessToken() {
   return localStorage.getItem('accessToken');
@@ -8,94 +8,50 @@ function putAccessToken(accessToken) {
   return localStorage.setItem('accessToken', accessToken);
 }
 
-async function fetchWithToken(url, options = {}) {
-  return fetch(url, {
-    ...options,
-    headers: {
-      ...options.headers,
-      Authorization: `Bearer ${getAccessToken()}`,
-    },
-  });
-}
-
-// LOGIN
+// MOCK login
 async function login({ email, password }) {
-  const response = await fetch(`${BASE_URL}/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  });
-
-  const responseJson = await response.json();
-
-  if (responseJson.status !== 'success') {
-    return { error: true, data: null, message: responseJson.message };
+  if (email === 'test@email.com' && password === '123456') {
+    putAccessToken('fake-token');
+    return {
+      error: false,
+      data: {
+        accessToken: 'fake-token',
+        user: { name: 'Test User', email },
+      },
+    };
   }
-
-  return { error: false, data: responseJson.data };
+  return { error: true, data: null, message: 'Login gagal' };
 }
 
-// REGISTER
+// MOCK register
 async function register({ name, email, password }) {
-  const response = await fetch(`${BASE_URL}/register`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ name, email, password }),
-  });
-
-  const responseJson = await response.json();
-
-  if (responseJson.status !== 'success') {
-    return { error: true, message: responseJson.message };
-  }
-
+  // Simulasikan sukses
   return { error: false };
 }
 
-// GET PROFILE
+// MOCK getUserLogged
 async function getUserLogged() {
-  const response = await fetchWithToken(`${BASE_URL}/users/me`);
-  const responseJson = await response.json();
-
-  if (responseJson.status !== 'success') {
-    return { error: true, data: null };
-  }
-
-  return { error: false, data: responseJson.data };
-}
-
-// GET REWARD / POIN
-async function getUserPoints() {
-  const response = await fetchWithToken(`${BASE_URL}/users/points`);
-  const responseJson = await response.json();
-
-  if (responseJson.status !== 'success') {
-    return { error: true, data: null };
-  }
-
-  return { error: false, data: responseJson.data };
-}
-
-// KUMPULKAN SAMPAH
-async function submitTrashCollection({ type, weight, location }) {
-  const response = await fetchWithToken(`${BASE_URL}/collections`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  return {
+    error: false,
+    data: {
+      name: 'Test User',
+      email: 'test@email.com',
     },
-    body: JSON.stringify({ type, weight, location }),
-  });
+  };
+}
 
-  const responseJson = await response.json();
+// MOCK getUserPoints
+async function getUserPoints() {
+  return {
+    error: false,
+    data: {
+      points: 100,
+    },
+  };
+}
 
-  if (responseJson.status !== 'success') {
-    return { error: true };
-  }
-
+// MOCK submitTrashCollection
+async function submitTrashCollection({ type, weight, location }) {
   return { error: false };
 }
 
