@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import '../styles/App.css';
 
 const Sidebar = () => {
@@ -9,11 +10,21 @@ const Sidebar = () => {
         <p className="sidebar-username">Nama User</p>
       </div>
       <nav className="sidebar-nav">
-        <a href="/profile">Profile</a>
-        <a href="/informasi" className="active">Informasi Sampah</a>
-        <a href="/riwayat">Riwayat Pengumpulan</a>
-        <a href="/poin">Poin</a>
-        <a href="/pengumpulan">Pengumpulan Sampah</a>
+        <NavLink to="/profile" className={({ isActive }) => isActive ? 'active' : ''}>
+          Profile
+        </NavLink>
+        <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} end>
+          Informasi Sampah
+        </NavLink>
+        <NavLink to="/riwayat" className={({ isActive }) => isActive ? 'active' : ''}>
+          Riwayat Pengumpulan
+        </NavLink>
+        <NavLink to="/poin" className={({ isActive }) => isActive ? 'active' : ''}>
+          Poin
+        </NavLink>
+        <NavLink to="/pengumpulan" className={({ isActive }) => isActive ? 'active' : ''}>
+          Pengumpulan Sampah
+        </NavLink>
       </nav>
     </aside>
   );

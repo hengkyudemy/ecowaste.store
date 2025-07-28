@@ -1,42 +1,53 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { getUserLogged, putAccessToken } from '../utils/network-data';
+import { getUserLogged, putAccessToken, getAccessToken } from '../utils/network-data';
+import PropTypes from 'prop-types';
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
-function AuthProvider({ children }) {
-  const [authUser, setAuthUser] = useState(null);
+export function AuthProvider({ children }) {
+  const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
 
   useEffect(() => {
-    const fetchUser = async () => {
-      const { error, data } = await getUserLogged();
-      if (!error) {
-        setAuthUser(data);
+    const initAuth = async () => {
+      const token = getAccessToken();
+      if (token) {
+        const { error, data } = await getUserLogged();
+        if (!error) {
+          setAuthedUser(data);
+        } else {
+          setAuthedUser(null);
+          localStorage.removeItem('accessToken'); // token expired / invalid, hapus token
+        }
       }
       setInitializing(false);
     };
 
-    fetchUser();
+    initAuth();
   }, []);
 
-  const loginSuccess = async (accessToken) => {
-    putAccessToken(accessToken);
+  const loginSuccess = async (token) => {
+    putAccessToken(token);
     const { error, data } = await getUserLogged();
     if (!error) {
-      setAuthUser(data);
+      setAuthedUser(data);
     }
   };
 
   const logout = () => {
-    putAccessToken('');
-    setAuthUser(null);
+    setAuthedUser(null);
+    localStorage.removeItem('accessToken');
   };
 
   return (
-    <AuthContext.Provider value={{ authUser, setAuthUser, loginSuccess, logout, initializing }}>
+    <AuthContext.Provider value={{ authedUser, initializing, loginSuccess, logout }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export { AuthProvider, AuthContext };
+AuthProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default AuthProvider;

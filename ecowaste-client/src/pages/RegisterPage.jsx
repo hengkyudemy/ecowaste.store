@@ -17,7 +17,7 @@ function RegisterPage() {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      setError('Password dan konfirmasi tidak cocok');
+      setError('Password dan konfirmasi password tidak sama');
       return;
     }
 
