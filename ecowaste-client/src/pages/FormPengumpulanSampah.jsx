@@ -1,40 +1,94 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { TrashContext } from '../contexts/TrashContext';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import '../styles/App.css';
 
 const FormPengumpulanSampahPage = () => {
+  const trashCtx = useContext(TrashContext);
+  const addPengumpulan = trashCtx?.addPengumpulan;
+  const navigate = useNavigate();
+
+  const [jenis, setJenis] = useState('');
+  const [jumlah, setJumlah] = useState('');
+  const [tanggal, setTanggal] = useState('');
+  const [alamat, setAlamat] = useState('');
+  const [catatan, setCatatan] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newData = {
+      jenis,
+      jumlah,
+      tanggal,
+      alamat,
+      catatan,
+      status: 'Pengumpulan Sampah diterima',
+    };
+
+    if (typeof addPengumpulan === 'function') {
+      addPengumpulan(newData);
+    } else {
+      // fallback: simpan ke localStorage jika context tidak tersedia
+      const data = JSON.parse(localStorage.getItem('pengumpulanList') || '[]');
+      data.push(newData);
+      localStorage.setItem('pengumpulanList', JSON.stringify(data));
+    }
+
+    navigate('/pengumpulan');
+  };
+
   return (
     <div className="app-container">
       <Header />
       <Sidebar />
       <main className="content-container">
         <h2 className="page-title">Pengumpulan Sampah</h2>
-        <form className="form-box">
+        <form className="form-box" onSubmit={handleSubmit}>
           <label>
             Jenis Sampah
-            <select required>
+            <select value={jenis} onChange={(e) => setJenis(e.target.value)} required>
               <option value="">--Pilih Jenis Sampah--</option>
-              <option value="organik">Organik</option>
-              <option value="anorganik">Anorganik</option>
+              <option value="Organik">Organik</option>
+              <option value="Anorganik">Anorganik</option>
             </select>
           </label>
           <label>
             Jumlah Sampah
-            <input type="number" required />
+            <input
+              type="number"
+              value={jumlah}
+              onChange={(e) => setJumlah(e.target.value)}
+              required
+            />
           </label>
           <label>
             Tanggal Pengumpulan
-            <input type="date" required />
+            <input
+              type="date"
+              value={tanggal}
+              onChange={(e) => setTanggal(e.target.value)}
+              required
+            />
           </label>
           <label>
             Alamat
-            <textarea required />
+            <textarea
+              value={alamat}
+              onChange={(e) => setAlamat(e.target.value)}
+              required
+            />
           </label>
           <label>
             Catatan Tambahan
-            <input type="text" />
+            <input
+              type="text"
+              value={catatan}
+              onChange={(e) => setCatatan(e.target.value)}
+            />
           </label>
           <button type="submit" className="auth-button">Kirim</button>
         </form>
