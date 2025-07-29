@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -10,6 +10,11 @@ const PengumpulanSampahPage = () => {
   const navigate = useNavigate();
   const [pengumpulanList, setPengumpulanList] = useState([]);
 
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem('pengumpulanList') || '[]');
+    setPengumpulanList(data);
+  }, []);
+
   return (
     <div className="app-container">
       <Header />
@@ -20,8 +25,20 @@ const PengumpulanSampahPage = () => {
           <p>Tidak ada pengumpulan sampah saat ini</p>
         ) : (
           pengumpulanList.map((item, index) => (
-            <div key={index}>
-              <p>{item.jenis} - {item.jumlah} kg</p>
+            <div className="pengumpulan-card" key={index}>
+              <h3>
+                {item.status === 'Pengumpulan Sampah sudah diambil'
+                  ? 'Pengumpulan Sampah sudah Selesai'
+                  : 'Pengumpulan Sampah dalam Proses'}
+              </h3>
+              <div className="pengumpulan-info">
+                <p><strong>Jenis:</strong> {item.jenis}</p>
+                <p><strong>Jumlah:</strong> {item.jumlah} kg</p>
+                <p><strong>Alamat:</strong> {item.alamat}</p>
+                <p><strong>Status:</strong> {item.status}</p>
+                {item.tanggal && <p><strong>Tanggal:</strong> {item.tanggal}</p>}
+                {item.catatan && <p><strong>Catatan:</strong> {item.catatan}</p>}
+              </div>
             </div>
           ))
         )}

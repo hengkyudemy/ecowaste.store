@@ -13,7 +13,7 @@ const Sidebar = () => {
         <NavLink to="/profile" className={({ isActive }) => isActive ? 'active' : ''}>
           Profile
         </NavLink>
-        <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} end>
+        <NavLink to="/informasi" className={({ isActive }) => isActive ? 'active' : ''}>
           Informasi Sampah
         </NavLink>
         <NavLink to="/riwayat" className={({ isActive }) => isActive ? 'active' : ''}>
@@ -31,3 +31,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

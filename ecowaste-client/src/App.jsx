@@ -7,6 +7,9 @@ import PengumpulanSampahPage from './pages/PengumpulanSampahPage';
 import FormPengumpulanSampah from './pages/FormPengumpulanSampah';
 import ProfilePage from './pages/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
+import InformasiSampah from './pages/InformasiSampah';
+import InfoDetail from './pages/InfoDetail';
+
 
 function App() {
   return (
@@ -45,6 +48,22 @@ function App() {
         element={
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/informasi"
+        element={
+          <ProtectedRoute>
+            <InformasiSampah />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/informasi/:id"
+        element={
+          <ProtectedRoute>
+            <InfoDetail />
           </ProtectedRoute>
         }
       />
