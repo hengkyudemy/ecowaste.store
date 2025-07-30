@@ -17,7 +17,7 @@ export function AuthProvider({ children }) {
           setAuthedUser(data);
         } else {
           setAuthedUser(null);
-          localStorage.removeItem('accessToken'); // token expired / invalid, hapus token
+          localStorage.removeItem('accessToken');
         }
       }
       setInitializing(false);

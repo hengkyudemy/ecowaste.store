@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import AddButton from '../components/AddButton';
+import { TrashContext } from '../contexts/TrashContext';
 import '../styles/App.css';
 
 const PengumpulanSampahPage = () => {
   const navigate = useNavigate();
-  const [pengumpulanList, setPengumpulanList] = useState([]);
-
-  useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('pengumpulanList') || '[]');
-    setPengumpulanList(data);
-  }, []);
+  const trashCtx = useContext(TrashContext);
+  const pengumpulanList = trashCtx?.pengumpulanList || [];
 
   return (
     <div className="app-container">
@@ -32,12 +29,13 @@ const PengumpulanSampahPage = () => {
                   : 'Pengumpulan Sampah dalam Proses'}
               </h3>
               <div className="pengumpulan-info">
-                <p><strong>Jenis:</strong> {item.jenis}</p>
-                <p><strong>Jumlah:</strong> {item.jumlah} kg</p>
-                <p><strong>Alamat:</strong> {item.alamat}</p>
-                <p><strong>Status:</strong> {item.status}</p>
-                {item.tanggal && <p><strong>Tanggal:</strong> {item.tanggal}</p>}
-                {item.catatan && <p><strong>Catatan:</strong> {item.catatan}</p>}
+                <p><strong>ID     :</strong> {item.id}</p>
+                <p><strong>Jenis  :</strong> {item.jenis}</p>
+                <p><strong>Jumlah :</strong> {item.jumlah} kg</p>
+                <p><strong>Alamat :</strong> {item.alamat}</p>
+                {item.tanggal && <p><strong>Tanggal :</strong> {item.tanggal}</p>}
+                {item.catatan && <p><strong>Catatan :</strong> {item.catatan}</p>}
+                <p><strong>Status :</strong> {item.status}</p>
               </div>
             </div>
           ))
