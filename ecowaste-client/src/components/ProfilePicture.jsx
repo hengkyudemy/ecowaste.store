@@ -1,42 +1,75 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { FaUser, FaCamera } from 'react-icons/fa';
 import '../styles/App.css';
 
-const ProfilePicture = () => {
-  const [imageUrl, setImageUrl] = useState(null);
+const ProfilePicture = ({ photo, onPhotoChange, size = 120 }) => {
   const fileInputRef = useRef();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file && file.type.startsWith('image/')) {
-      const imageURL = URL.createObjectURL(file);
-      setImageUrl(imageURL);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (onPhotoChange) {
+          onPhotoChange(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   const triggerFileInput = () => {
-    fileInputRef.current.click();
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
   };
 
   return (
     <div className="profile-picture-wrapper">
-      <div className="profile-picture" onClick={triggerFileInput}>
-        {imageUrl ? (
-          <img src={imageUrl} alt="User" className="profile-img" />
+      <div
+        className="profile-picture"
+        onClick={onPhotoChange ? triggerFileInput : undefined}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          background: '#eee',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: onPhotoChange ? 'pointer' : 'default',
+        }}
+      >
+        {photo ? (
+          <img
+            src={photo}
+            alt="User"
+            className="profile-img"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+            }}
+          />
         ) : (
-          <FaUser size={60} color="#666" />
+          <FaUser size={size * 0.6} color="#666" />
         )}
       </div>
-      <button className="upload-button" onClick={triggerFileInput}>
-        <FaCamera /> Ubah Foto
-      </button>
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        onChange={handleImageUpload}
-        style={{ display: 'none' }}
-      />
+      {onPhotoChange && (
+        <>
+          <button className="upload-button" onClick={triggerFileInput} type="button">
+            <FaCamera /> Ubah Foto
+          </button>
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleImageUpload}
+            style={{ display: 'none' }}
+          />
+        </>
+      )}
     </div>
   );
 };

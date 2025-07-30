@@ -7,8 +7,7 @@ import Footer from '../components/Footer';
 import '../styles/App.css';
 
 const FormPengumpulanSampahPage = () => {
-  const trashCtx = useContext(TrashContext);
-  const addPengumpulan = trashCtx?.addPengumpulan;
+  const { addPengumpulan } = useContext(TrashContext);
   const navigate = useNavigate();
 
   const [jenis, setJenis] = useState('');
@@ -20,7 +19,11 @@ const FormPengumpulanSampahPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    const data = JSON.parse(localStorage.getItem('pengumpulanList') || '[]');
+    const newId = 'PS' + String(data.length + 1).padStart(4, '0');
+
     const newData = {
+      id: newId,
       jenis,
       jumlah,
       tanggal,
@@ -32,8 +35,6 @@ const FormPengumpulanSampahPage = () => {
     if (typeof addPengumpulan === 'function') {
       addPengumpulan(newData);
     } else {
-      // fallback: simpan ke localStorage jika context tidak tersedia
-      const data = JSON.parse(localStorage.getItem('pengumpulanList') || '[]');
       data.push(newData);
       localStorage.setItem('pengumpulanList', JSON.stringify(data));
     }

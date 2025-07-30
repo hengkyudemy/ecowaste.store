@@ -32,7 +32,7 @@ function LoginPage() {
   };
 
   return (
-    <section className="login-page"> {/* atau register-page */}
+    <section className="login-page">
       <div className="branding">
         <div className="logo-title">
           <img src={logo} alt="EcoWaste" className="logo" />

@@ -115,7 +115,6 @@
   z-index: 1000;
 }
 
-
 .eco-header-left {
   display: flex;
   align-items: center;
@@ -222,12 +221,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 30px;
+  margin-bottom: 50px;
+  margin-top: 60px;
 }
 
 .sidebar-profile-pic {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   background-color: #ccc;
   border-radius: 50%;
   display: flex;
@@ -264,18 +264,36 @@
 
 .content-container {
   margin-left: 240px;
-  /* match lebar sidebar */
   padding: 100px 30px 40px 30px;
-  /* top padding disesuaikan dgn tinggi header */
   background-color: #fff8e1;
   flex: 1;
   min-height: calc(100vh - 50px);
-  /* agar tidak ketutupan footer */
   z-index: 1;
   position: relative;
 }
 
+/*Profile Picture */
+.profile-picture-wrapper {
+  margin-bottom: 10px;
+}
 
+.profile-picture {
+  width: 110px !important;
+  height: 110px !important;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
 
 /* Footer */
 .eco-footer {
@@ -365,36 +383,64 @@
   gap: 10px;
 }
 
-/* Badge Point */
+/* Profile Page*/
 .badge-point-container {
-  margin-top: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  border: 2px solid #ddd;
+  padding: 32px 30px;
+  border-radius: 15px;
+  background-color: white;
+  max-width: 500px;
+  margin-top: 20px;
 }
 
-.badge-icon {
+.badge-left {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-right: 20px;
+  gap: 12px;
 }
 
-.badge-values {
+.star-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 16px;
+}
+
+.text-wrapper {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-.point-value,
-.sampah-value {
-  font-size: 24px;
+.badge-label {
   font-weight: bold;
-  color: #fdd835;
+  font-size: 16px;
+}
+
+.point-value {
+  color: #fbc02d;
+  font-size: 40px;
+  margin: 0;
+}
+
+.badge-right {
+  text-align: right;
+}
+
+.sampah-label {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  font-weight: bold;
+}
+
+.sampah-value {
+  margin: 0;
+  color: #fbc02d;
+  font-size: 40px;
+  text-align: left;
 }
 
 /* Pengumpulan Sampah*/
@@ -407,7 +453,6 @@
   margin-bottom: 24px;
   max-width: 500px;
   border: 2px solid #222;
-  /* stroke hitam */
 }
 
 .pengumpulan-card h3 {

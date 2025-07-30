@@ -1,25 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import React, { useContext, useEffect, useState } from 'react';
+import { TrashContext } from '../contexts/TrashContext';
 import '../styles/App.css';
+import StarImage from '../assets/Star.png';
 
-const BadgePoint = ({ totalSampah }) => {
+const BadgePoint = () => {
+  const { pengumpulanList } = useContext(TrashContext);
+  const [totalSampah, setTotalSampah] = useState(0);
   const [points, setPoints] = useState(0);
 
   useEffect(() => {
-    // misal aturan: 1 kg sampah = 5 poin
-    const newPoints = totalSampah * 5;
-    setPoints(newPoints);
-  }, [totalSampah]);
+    const totalKg = pengumpulanList.reduce((acc, item) => acc + parseFloat(item.jumlah || 0), 0);
+    setTotalSampah(totalKg);
+    setPoints(totalKg * 10); // 1 kg = 10 poin
+  }, [pengumpulanList]);
 
   return (
     <div className="badge-point-container">
-      <div className="badge-icon">
-        <FaStar size={24} color="gold" />
-        <span>Poin Anda</span>
+      <div className="badge-left">
+        <img src={StarImage} alt="Star Icon" className="star-icon" />
+        <div className="text-wrapper">
+          <span className="badge-label">Poin Anda</span>
+          <h2 className="point-value">{points}</h2>
+        </div>
       </div>
-      <div className="badge-values">
-        <h2 className="point-value">{points}</h2>
-        <p>Total sampah dikumpulkan</p>
+      <div className="badge-right">
+        <p className="sampah-label">Total Sampah dikumpulkan</p>
         <h2 className="sampah-value">{totalSampah} Kg</h2>
       </div>
     </div>

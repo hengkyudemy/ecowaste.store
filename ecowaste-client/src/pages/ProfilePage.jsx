@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
@@ -10,10 +10,19 @@ const ProfilePage = () => {
   const [name, setName] = useState('Nama User');
   const [email, setEmail] = useState('EmailUser@gmail.com');
   const [photo, setPhoto] = useState(null);
-  const [totalSampah, setTotalSampah] = useState(0);
+
+  useEffect(() => {
+    const savedPhoto = localStorage.getItem('profilePhoto');
+    if (savedPhoto) {
+      setPhoto(savedPhoto);
+    }
+  }, []);
 
   const handlePhotoChange = (file) => {
     setPhoto(file);
+    if (file) {
+      localStorage.setItem('profilePhoto', file);
+    }
   };
 
   return (
@@ -28,14 +37,14 @@ const ProfilePage = () => {
         </div>
 
         <form className="profile-form">
-          <label>Nama Lengkap</label>
+          <label>Nama</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
 
           <label>Email</label>
           <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </form>
 
-        <BadgePoint totalSampah={totalSampah} />
+        <BadgePoint />
       </main>
       <Footer />
     </div>

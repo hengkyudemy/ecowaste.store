@@ -1,11 +1,14 @@
-// src/pages/HomePage.jsx
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { getUserPoints } from '../utils/network-data';
 import { getAllInfos } from '../utils/local-data';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Footer from '../components/Footer';
 import { AuthContext } from '../contexts/AuthContext';
+import StarIcon from '../assets/Star.png';
+import Increase from '../assets/Increase.png';
+import BuangSampah from '../assets/BuangSampah.png';
 import '../styles/HomePage.css';
 
 const HomePage = () => {
@@ -20,8 +23,8 @@ const HomePage = () => {
         setPoints(pointsResponse.data.points);
       }
 
-      const { data } = getAllInfos();
-      setInfos(data.slice(0, 2)); // hanya 2 info pertama
+      const allInfos = getAllInfos();
+      setInfos(allInfos.slice(0, 2));
     }
 
     fetchData();
@@ -38,21 +41,31 @@ const HomePage = () => {
         </section>
 
         <section className="homepage-content">
-          <div className="card card-poin">
-            <h3>⭐ Poin Anda</h3>
+          <div className="card-poin">
+            <div className="poin-header">
+              <img src={StarIcon} alt="Star Icon" className="star-icon" />
+              <span className="poin-label">Poin Anda</span>
+            </div>
             <p className="poin-angka">{points}</p>
-            <img src="/assets/poin-chart.png" alt="Grafik Poin" className="poin-grafik" />
+            <img src={Increase} alt="Increase" className="poin-grafik" />
           </div>
 
-          <img src="/assets/eco-user.png" alt="Ilustrasi pengguna" className="eco-illustration" />
+          <img src={BuangSampah} alt="Ilustrasi pengguna" className="eco-illustration" />
         </section>
 
         <section className="info-section">
           {infos.map((info) => (
-            <div className="info-card" key={info.id}>
-              <h4>{info.title}</h4>
-              <p>{info.body}</p>
-            </div>
+            <Link
+              to={`/informasi/${info.id}`}
+              key={info.id}
+              className="info-card-link"
+              style={{ textDecoration: 'none', color: 'inherit' }}
+            >
+              <div className="info-card">
+                <h4>{info.title}</h4>
+                <p>{info.body}</p>
+              </div>
+            </Link>
           ))}
         </section>
       </main>

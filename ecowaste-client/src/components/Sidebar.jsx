@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import ProfilePicture from './ProfilePicture';
 import '../styles/App.css';
 
 const Sidebar = () => {
+  const [photo, setPhoto] = useState(null);
+
+  useEffect(() => {
+    const storedPhoto = localStorage.getItem('profilePhoto');
+    setPhoto(storedPhoto);
+  }, []);
+
   return (
     <aside className="eco-sidebar">
       <div className="sidebar-profile">
-        <div className="sidebar-profile-pic">Profile User</div>
+        <ProfilePicture photo={photo} size={64} />
         <p className="sidebar-username">Nama User</p>
       </div>
       <nav className="sidebar-nav">
@@ -31,4 +39,3 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
-

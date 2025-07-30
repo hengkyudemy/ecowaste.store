@@ -9,6 +9,7 @@ import ProfilePage from './pages/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import InformasiSampah from './pages/InformasiSampah';
 import InfoDetail from './pages/InfoDetail';
+import PoinPage from './pages/PoinPage';
 
 
 function App() {
@@ -64,6 +65,14 @@ function App() {
         element={
           <ProtectedRoute>
             <InfoDetail />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/poin"
+        element={
+          <ProtectedRoute>
+            <PoinPage />
           </ProtectedRoute>
         }
       />
