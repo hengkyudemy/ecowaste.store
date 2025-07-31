@@ -16,6 +16,27 @@ const FormPengumpulanSampahPage = () => {
   const [alamat, setAlamat] = useState('');
   const [catatan, setCatatan] = useState('');
 
+  const formatTanggal = (inputDate) => {
+    const dateObj = new Date(inputDate);
+    const bulanIndo = [
+      'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+      'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember',
+    ];
+    const day = String(dateObj.getDate()).padStart(2, '0');
+    const month = bulanIndo[dateObj.getMonth()];
+    const year = dateObj.getFullYear();
+    return `${day} ${month} ${year}`;
+  };
+
+  const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -26,7 +47,7 @@ const FormPengumpulanSampahPage = () => {
       id: newId,
       jenis,
       jumlah,
-      tanggal,
+      tanggal: formatTanggal(tanggal),
       alamat,
       catatan,
       status: 'Pengumpulan Sampah diterima',
@@ -64,6 +85,8 @@ const FormPengumpulanSampahPage = () => {
               value={jumlah}
               onChange={(e) => setJumlah(e.target.value)}
               required
+              min="0.1"
+              step="0.1"
             />
           </label>
           <label>
@@ -72,6 +95,7 @@ const FormPengumpulanSampahPage = () => {
               type="date"
               value={tanggal}
               onChange={(e) => setTanggal(e.target.value)}
+              min={getTodayDate()}
               required
             />
           </label>

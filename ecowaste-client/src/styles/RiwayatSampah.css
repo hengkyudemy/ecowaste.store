@@ -1,0 +1,66 @@
+.riwayat-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.trash-image {
+  width: 300px;
+  display: block;
+  margin: 1rem auto;
+}
+
+.filter-container {
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.month-picker input {
+  margin-left: 0.5rem;
+  padding: 5px;
+}
+
+.reset-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reset-button:hover {
+  background-color: #c0392b;
+}
+
+.filter-container select {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #2e7d32;
+  border-radius: 4px;
+  background-color: white;
+  color: #2e7d32;
+  cursor: pointer;
+}
+
+.riwayat-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.riwayat-table th,
+.riwayat-table td {
+  text-align: left;
+  padding: 0.75rem;
+  border-bottom: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.riwayat-table th {
+  font-weight: 600;
+}

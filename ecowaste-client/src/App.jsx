@@ -9,17 +9,16 @@ import ProfilePage from './pages/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import InformasiSampah from './pages/InformasiSampah';
 import InfoDetail from './pages/InfoDetail';
+import RiwayatPengumpulanSampah from './pages/RiwayatPengumpulanSampah';
 import PoinPage from './pages/PoinPage';
 
 
 function App() {
   return (
     <Routes>
-      {/* Login & Register bebas diakses */}
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
 
-      {/* Semua ini butuh login */}
       <Route
         path="/"
         element={
@@ -73,6 +72,14 @@ function App() {
         element={
           <ProtectedRoute>
             <PoinPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/riwayat"
+        element={
+          <ProtectedRoute>
+            <RiwayatPengumpulanSampah />
           </ProtectedRoute>
         }
       />

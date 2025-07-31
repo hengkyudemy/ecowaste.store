@@ -381,6 +381,7 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  max-width: 500px;
 }
 
 /* Profile Page*/
@@ -403,8 +404,8 @@
 }
 
 .star-icon {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   margin-right: 16px;
 }
 
