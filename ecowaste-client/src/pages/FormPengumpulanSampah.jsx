@@ -76,6 +76,7 @@ const FormPengumpulanSampahPage = () => {
               <option value="">--Pilih Jenis Sampah--</option>
               <option value="Organik">Organik</option>
               <option value="Anorganik">Anorganik</option>
+              <option value="B3">B3</option>
             </select>
           </label>
           <label>

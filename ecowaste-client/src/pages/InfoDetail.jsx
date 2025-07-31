@@ -18,6 +18,7 @@ const InfoDetail = () => {
       <Sidebar />
       <main className="info-detail-container">
         <h2 className="page-title">{info.title}</h2>
+        <img src={info.image} alt={info.title} className="info-detail-image" />
         <p>{info.body}</p>
       </main>
       <Footer />
