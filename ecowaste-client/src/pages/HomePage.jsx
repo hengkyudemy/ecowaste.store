@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUserPoints } from '../utils/network-data';
+import { TrashContext } from '../contexts/TrashContext';
 import { getAllInfos } from '../utils/local-data';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
@@ -13,21 +13,12 @@ import '../styles/HomePage.css';
 
 const HomePage = () => {
   const { authedUser } = useContext(AuthContext);
-  const [points, setPoints] = useState(0);
+  const { totalPoin } = useContext(TrashContext); // ✅ Ambil poin dari TrashContext
   const [infos, setInfos] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {
-      const pointsResponse = await getUserPoints();
-      if (!pointsResponse.error) {
-        setPoints(pointsResponse.data.points);
-      }
-
-      const allInfos = getAllInfos();
-      setInfos(allInfos.slice(0, 2));
-    }
-
-    fetchData();
+    const allInfos = getAllInfos();
+    setInfos(allInfos.slice(0, 2));
   }, []);
 
   return (
@@ -46,7 +37,7 @@ const HomePage = () => {
               <img src={StarIcon} alt="Star Icon" className="star-icon" />
               <span className="poin-label">Poin Anda</span>
             </div>
-            <p className="poin-angka">{points}</p>
+            <p className="poin-angka">{totalPoin}</p>
             <img src={Increase} alt="Increase" className="poin-grafik" />
           </div>
 

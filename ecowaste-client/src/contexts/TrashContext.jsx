@@ -5,16 +5,25 @@ export const TrashContext = createContext();
 export function TrashProvider({ children }) {
   const [pengumpulanList, setPengumpulanList] = useState([]);
   const [lastId, setLastId] = useState(0);
+  const [totalPoin, setTotalPoin] = useState(0);
 
   useEffect(() => {
     const storedList = JSON.parse(localStorage.getItem('pengumpulanList') || '[]');
     const storedLastId = parseInt(localStorage.getItem('lastPengumpulanId') || '0');
     setPengumpulanList(storedList);
     setLastId(storedLastId);
+
+    // Hitung total poin awal saat load
+    const total = storedList.reduce((sum, item) => sum + (parseFloat(item.jumlah || 0) * 10), 0);
+    setTotalPoin(total);
   }, []);
 
   useEffect(() => {
     localStorage.setItem('pengumpulanList', JSON.stringify(pengumpulanList));
+
+    // Rehitung total poin setiap kali data pengumpulan berubah
+    const total = pengumpulanList.reduce((sum, item) => sum + (parseFloat(item.jumlah || 0) * 10), 0);
+    setTotalPoin(total);
   }, [pengumpulanList]);
 
   useEffect(() => {
@@ -34,7 +43,6 @@ export function TrashProvider({ children }) {
     setPengumpulanList((prev) => [...prev, newDataWithId]);
     setLastId(newId);
 
-    // Hitung poin (1kg = 10 poin)
     const poin = data.jumlah * 10;
 
     const newRiwayat = {
@@ -48,9 +56,8 @@ export function TrashProvider({ children }) {
     localStorage.setItem('riwayatPoin', JSON.stringify(updatedRiwayat));
   };
 
-
   return (
-    <TrashContext.Provider value={{ pengumpulanList, addPengumpulan }}>
+    <TrashContext.Provider value={{ pengumpulanList, addPengumpulan, totalPoin }}>
       {children}
     </TrashContext.Provider>
   );
