@@ -86,8 +86,8 @@ const FormPengumpulanSampahPage = () => {
               value={jumlah}
               onChange={(e) => setJumlah(e.target.value)}
               required
-              min="0.1"
-              step="0.1"
+              min="1"
+              step="1"
             />
           </label>
           <label>

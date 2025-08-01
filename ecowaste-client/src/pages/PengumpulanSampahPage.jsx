@@ -26,7 +26,11 @@ const PengumpulanSampahPage = () => {
               <h3>
                 {item.status === 'Pengumpulan Sampah sudah diambil'
                   ? 'Pengumpulan Sampah sudah Selesai'
-                  : 'Pengumpulan Sampah dalam Proses'}
+                  : item.status === 'Ditangguhkan'
+                    ? 'Pengumpulan Sampah Ditangguhkan'
+                    : item.status === 'Dijadwalkan Ulang'
+                      ? 'Pengumpulan Sampah Dijadwalkan Ulang'
+                      : 'Pengumpulan Sampah dalam Proses'}
               </h3>
               <div className="pengumpulan-info">
                 <p><strong>ID     :</strong> {item.id}</p>
